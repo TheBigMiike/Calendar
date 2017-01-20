@@ -1,7 +1,7 @@
 <?php
 namespace Calendar\Facades;
 
-use Facade;
+use Illuminate\Support\Facades\Facade;
 
 
 class Calendar extends Facade{

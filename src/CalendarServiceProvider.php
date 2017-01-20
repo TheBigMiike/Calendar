@@ -1,7 +1,8 @@
 <?php
-namespace App\Providers;
+namespace Calendar;
 
 use Illuminate\Support\ServiceProvider;
+
 
 class CalendarServiceProvider extends ServiceProvider{
     /**
@@ -11,7 +12,7 @@ class CalendarServiceProvider extends ServiceProvider{
     */
     public function register(){
         $this->app->singleton('calendar', function() {
-            return new ;
+            return new CalendarFactory();
         });
     }
 }
