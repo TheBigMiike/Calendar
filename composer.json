@@ -1,0 +1,21 @@
+{
+    "name": "thebigmiike/calendar",
+    "type": "library",
+    "description": "WIP : A small library for manipulating periods and generate calendars. Still work in progress.",
+    "keywords": ["calendar", "week", "month", "day"],
+    "authors": [
+        {
+            "name": "Brendan POIRIER",
+            "email": "poirierbr@live.fr",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "fightbulc/moment": "^1.22"
+    },
+    "autoload": {
+        "psr-4": {
+            "Calendar\\": "src/"
+        }
+    }
+}

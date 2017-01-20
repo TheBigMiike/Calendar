@@ -1,0 +1,158 @@
+<?php
+namespace Calendar;
+
+use Calendar\Collections\Collection;
+use Calendar\Collections\EventCollection;
+use Calendar\Periods\Day;
+use Calendar\Periods\Year;
+use Moment\Moment;
+
+class Calendar{
+
+    /**
+     * @var Day
+     */
+    protected $begin;
+
+    /**
+     * @var Day
+     */
+    protected $end;
+
+    /**
+     * @var Collection
+     */
+    protected $events;
+
+    /**
+     * @var Collection
+     */
+    protected $holidays;
+
+    /**
+     * @var integer
+     */
+    protected $week_first_day = 0;
+
+    /**
+     * @var array
+     */
+    protected $non_business_days = [0, 3, 6];
+
+    /**
+     * Constructor
+     * @param string|\DateTime $begin
+     * @param string|\DateTime $end
+     */
+    public function __construct($begin, $end){
+        $this->begin    = new Moment($begin);
+        $this->end      = new Moment($end);
+        $this->events   = new EventCollection();
+        $this->holidays = new EventCollection();
+    }
+
+    /**
+     * Add Event / Vacation
+     * @param Event $event
+     * @return int
+     * @internal param string $locale
+     */
+    public function addEvent($event){
+        $this->events->addOrMerge($event);
+    }
+
+    /**
+     * Get all events
+     * @return Collection
+     */
+    public function events(){
+        return $this->events;
+    }
+
+    /**
+     * Get all events
+     * @return Collection
+     */
+    public function addHoliday($holiday){
+        $this->holidays->addOrMerge($holiday);
+    }
+
+    /**
+     * Get all holidays / bank holidays
+     * @return Collection
+     */
+    public function holidays(){
+        return $this->holidays;
+    }
+
+    /**
+     * Set week first day
+     * @param int $day
+     */
+    public function setWeekFirstDay($day = 0){
+        $this->week_first_day = $day;
+    }
+
+    /**
+     * Get week first day
+     * @return integer
+     */
+    public function weekFirstDay(){
+        return $this->week_first_day;
+    }
+
+    /**
+     * Set casual non business days
+     * @param array $non_business_days
+     */
+    public function setNonBusinessDays($non_business_days){
+        $this->non_business_days = $non_business_days;
+    }
+
+    /**
+     * Get non business days
+     * @return array $non_business_days
+     */
+    public function nonBusinessDays(){
+        return $this->non_business_days;
+    }
+
+    /**
+     * Set locale
+     * @param $lang
+     */
+    public function setLocale($locale){
+        Moment::setLocale($locale);
+    }
+
+    /**
+     * Create a list of years between the start and the end of the calendar
+     * @return Collection
+     */
+    public function years(){
+        $collection = new Collection();
+        $range      = new \DatePeriod($this->begin, new \DateInterval('P1Y'), $this->end);
+
+        foreach($range as $year){
+            $collection->add(new Year($year, $this));
+        }
+        return $collection;
+    }
+
+    /**
+     * Get the start date
+     * @return Moment
+     */
+    public function begin(){
+        return clone $this->begin;
+    }
+
+    /**
+     * Get the end date
+     * @return Moment
+     */
+    public function end(){
+        return clone $this->end;
+    }
+}
+ ?>
