@@ -5,9 +5,12 @@ use Calendar\Collections\Collection;
 use Calendar\Collections\EventCollection;
 use Calendar\Periods\Day;
 use Calendar\Periods\Year;
+use Calendar\Traits\DateTrait;
 use Moment\Moment;
 
 class Calendar{
+
+    use DateTrait;
 
     /**
      * @var Day
@@ -45,8 +48,8 @@ class Calendar{
      * @param string|\DateTime $end
      */
     public function __construct($begin, $end){
-        $this->begin    = new Moment($begin);
-        $this->end      = new Moment($end);
+        $this->begin    = $this->getMoment($begin);
+        $this->end      = $this->getMoment($end);
         $this->events   = new EventCollection();
         $this->holidays = new EventCollection();
     }
@@ -115,14 +118,6 @@ class Calendar{
      */
     public function nonBusinessDays(){
         return $this->non_business_days;
-    }
-
-    /**
-     * Set locale
-     * @param $lang
-     */
-    public function setLocale($locale){
-        Moment::setLocale($locale);
     }
 
     /**
