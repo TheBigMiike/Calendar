@@ -5,6 +5,20 @@ class Day extends Period{
 
     protected $is_business_day = null;
 
+    const SUNDAY = 0;
+
+    const MONDAY = 1;
+
+    const TUESDAY = 2;
+
+    const WEDNESDAY = 3;
+
+    const THURSDAY = 4;
+
+    const FRIDAY = 5;
+
+    const SATURDAY = 6;
+
     /**
      * Echo the day number
      * @return string
