@@ -38,6 +38,14 @@ class Month extends Period{
     }
 
     /**
+     * Get the day number
+     * @return string
+     */
+    public function number(){
+        return (string) $this->format('m');
+    }
+
+    /**
      * Creates a collection of CalendarMonth instances
      * @return Collection
      */
