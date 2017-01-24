@@ -3,9 +3,10 @@ namespace Calendar;
 
 use Calendar\Collections\Collection;
 use Calendar\Periods\Day;
+use Calendar\Periods\Month;
+use Calendar\Periods\Year;
 use Calendar\Traits\DateTrait;
 use Moment\Moment;
-use Moment\MomentLocale;
 
 class CalendarFactory{
 
@@ -24,10 +25,10 @@ class CalendarFactory{
 
     /**
      * @param null $year
-     * @param CalendarBuilder|null $calendar
+     * @param Calendar|null $calendar
      * @return Collection;
      */
-    public function months($year = null, CalendarBuilder $calendar = null){
+    public function months($year = null, Calendar $calendar = null){
         if(is_null($year)){
             $year = date('Y');
         }
@@ -45,29 +46,29 @@ class CalendarFactory{
      * @param null $year
      * @param null $month
      * @param null $day
-     * @param CalendarBuilder|null $calendar
+     * @param Calendar|null $calendar
      * @return Day
      */
-    public function day($year = null, $month = null, $day = null, CalendarBuilder $calendar = null){
+    public function day($year = null, $month = null, $day = null, Calendar $calendar = null){
         return new Day($this->getMomentFromFormat($year, $month, $day), $calendar);
     }
 
     /**
      * @param null $month
      * @param null $year
-     * @param CalendarBuilder|null $calendar
+     * @param Calendar|null $calendar
      * @return Month
      */
-    public function month($month = null, $year = null, CalendarBuilder $calendar = null){
+    public function month($month = null, $year = null, Calendar $calendar = null){
         return new Month($this->getMomentFromFormat($year, $month));
     }
 
     /**
      * @param null $year
-     * @param CalendarBuilder|null $calendar
+     * @param Calendar|null $calendar
      * @return Year
      */
-    public function year($year = null, CalendarBuilder $calendar = null){
+    public function year($year = null, Calendar $calendar = null){
         return new Year($this->getMomentFromFormat($year));
     }
 
