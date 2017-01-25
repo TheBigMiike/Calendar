@@ -56,7 +56,7 @@ class Day extends Period{
      * @return integer
      */
     public function weekday(){
-        return (int) (7 + (($this->format('w') - $this->config->weekFirstDay()) % 7)) % 7;
+        return $this->format('w');
     }
 
     /**
@@ -73,7 +73,7 @@ class Day extends Period{
      */
     public function colspan(){
         if($this->format('d') == '01'){
-            return $this->weekday();
+            return (int) (7 + (($this->format('w') - $this->config->weekFirstDay()) % 7)) % 7;
         }
         return 0;
     }
