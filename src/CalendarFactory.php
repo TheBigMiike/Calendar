@@ -49,7 +49,7 @@ class CalendarFactory{
      * @param Calendar|null $calendar
      * @return Day
      */
-    public function day($year = null, $month = null, $day = null, Calendar $calendar = null){
+    public function day4($year = null, $month = null, $day = null, Calendar $calendar = null){
         return new Day($this->getMomentFromFormat($year, $month, $day), $calendar);
     }
 
@@ -70,7 +70,7 @@ class CalendarFactory{
      * @param Calendar|null $calendar
      * @return Month
      */
-    public function month($month = null, $year = null, Calendar $calendar = null){
+    public function month3($month = null, $year = null, Calendar $calendar = null){
         return new Month($this->getMomentFromFormat($year, $month));
     }
 
@@ -105,6 +105,7 @@ class CalendarFactory{
      */
     function __call($name, $args){
         $name = $name.count($args);
+        echo $name;
         return call_user_func_array(array($this, $name), $args);
     }
 }
