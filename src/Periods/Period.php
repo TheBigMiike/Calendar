@@ -2,11 +2,14 @@
 namespace Calendar\Periods;
 
 use Calendar\Collections\Collection;
+use Calendar\Collections\EventCollection;
 use Calendar\Traits\DateTrait;
 use Moment\Moment;
 use Calendar\Calendar;
 
-abstract class Period{
+abstract class Period implements PeriodInterface{
+
+    use DateTrait;
 
     /**
      * @var Moment
@@ -19,12 +22,12 @@ abstract class Period{
     protected $end;
 
     /**
-     * @var Collection
+     * @var EventCollection
      */
     protected $events;
 
     /**
-     * @var Collection
+     * @var EventCollection
      */
     protected $holidays;
 
@@ -40,9 +43,11 @@ abstract class Period{
      * @param Calendar|NULL $calendar
      */
     public function __construct($begin, Calendar $config = null){
-        $this->begin    = clone $begin;
-        $this->end      = clone $begin->add($this->dateInterval());
+        $this->begin    = clone $this->getMoment($begin);
+        $this->end      = clone $this->getMoment($begin)->add($this->dateInterval());
         $this->config   = $config;
+        // destroy $begin
+        unset($begin);
     }
 
     /**
@@ -75,7 +80,7 @@ abstract class Period{
      */
     public function events(){
         if(empty($this->events)){
-            $this->events = $this->config->events()->inRange($this->begin(), $this->end());
+            $this->events = $this->config->events()->overlaps($this->begin(), $this->end());
         }
         return $this->events;
     }
@@ -86,7 +91,7 @@ abstract class Period{
      */
     public function holidays(){
         if(empty($this->holidays)){
-            $this->holidays = $this->config->holidays()->inRange($this->begin(), $this->end());
+            $this->holidays = $this->config->holidays()->overlaps($this->begin(), $this->end());
         }
         return $this->holidays;
     }

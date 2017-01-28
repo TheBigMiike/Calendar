@@ -19,7 +19,7 @@ class EventCollection extends Collection{
         });
     }
 
-    public function inRange($begin, $end){
+    public function overlaps($begin, $end){
         return $this->getEventsWhile($begin, $end, function($begin, $end, $event){
             return ($event->begin() <= $end && $event->end() >= $begin);
         });

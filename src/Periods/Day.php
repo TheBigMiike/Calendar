@@ -68,6 +68,14 @@ class Day extends Period{
     }
 
     /**
+     * Get the period type
+     * @return string
+     */
+    public function period(){
+        return 'day';
+    }
+
+    /**
      * Get the offset for generating HTML calendar
      * @return integer
      */

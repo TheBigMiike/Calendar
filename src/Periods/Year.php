@@ -40,4 +40,12 @@ class Year extends Period{
     public function dateInterval(){
         return new \DateInterval('P1Y');
     }
+
+    /**
+     * Get the period type
+     * @return string
+     */
+    public function period(){
+        return 'year';
+    }
 }

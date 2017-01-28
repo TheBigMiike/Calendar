@@ -53,6 +53,17 @@ class CalendarFactory{
         return new Day($this->getMomentFromFormat($year, $month, $day), $calendar);
     }
 
+
+    /**
+     * @param $date
+     * @param Calendar|null $calendar
+     * @return Day
+     */
+    public function day2($date, Calendar $calendar = null){
+        return new Day($this->getMoment($date), $calendar);
+    }
+
+
     /**
      * @param null $month
      * @param null $year
@@ -63,14 +74,38 @@ class CalendarFactory{
         return new Month($this->getMomentFromFormat($year, $month));
     }
 
+
+    /**
+     * @param $month
+     * @param Calendar|null $calendar
+     * @return Month
+     */
+    public function month2($month, Calendar $calendar = null){
+        return new Month($this->getMomentFromFormat($month), $calendar);
+    }
+
     /**
      * @param null $year
      * @param Calendar|null $calendar
      * @return Year
      */
     public function year($year = null, Calendar $calendar = null){
-        return new Year($this->getMomentFromFormat($year));
+        if(strlen($year) == 4){
+            $year = $this->getMomentFromFormat($year);
+        }
+
+        return new Year($this->getMoment($year));
     }
 
+    /**
+     * Method for calling a method with the same name but not the same args
+     * @param $name
+     * @param $args
+     * @return mixed
+     */
+    function __call($name, $args){
+        $name = $name.count($args);
+        return call_user_func_array(array($this, $name), $args);
+    }
 }
 ?>
