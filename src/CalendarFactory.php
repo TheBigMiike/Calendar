@@ -105,7 +105,6 @@ class CalendarFactory{
      */
     function __call($name, $args){
         $name = $name.count($args);
-        echo $name;
         return call_user_func_array(array($this, $name), $args);
     }
 }
