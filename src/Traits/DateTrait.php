@@ -6,20 +6,21 @@ use Moment\Moment;
 
 trait DateTrait{
 
-    protected function getMoment($date){
+    protected function getMoment($date, $timezone = "Europe/London"){
 
         // If $date is already a Moment instance, then we return the given value
         if($date instanceof Moment){
+            $date->setTimezone($timezone);
             return $date;
         }
 
         // If $date is an instance of DateTime, we convert $date to a Moment instance
-        if($date instanceof \DateTime ){
-            return new Moment($date->format('Y-m-d H:i:s.u'));
+        if($date instanceof \DateTime){
+            return new Moment($date->format('Y-m-d H:i:s.u'), $timezone);
         }
 
         // We'll assume $date is a given format so a Moment instance is created
-        return new Moment($date);
+        return new Moment($date, $timezone);
     }
 
 

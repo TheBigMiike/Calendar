@@ -12,7 +12,7 @@ use Calendar\Events\Holiday;
 // Create an instance of CalendarFactory. Mainly useful for Laravel developers using Facades
 // Calendar::createCalendar('2016-09-01', '2017-07-04');
 $factory    = new CalendarFactory();
-$calendar   = $factory->createCalendar('2016-09-01', '2017-07-04');
+$calendar   = $factory->createCalendar('2016-09-01', '2017-07-01');
 
 
 $holiday    = new Holiday('Vacances de Noel', '2016-12-22', '2017-01-02');
@@ -23,7 +23,7 @@ $calendar->addHoliday($holiday);
 <html>
     <?php foreach($calendar->years() as $year){ ?>
         <?php foreach($year->months() as $month) {
-            echo $month->name();
+            echo $month->name().' '.$year;
         ?>
         <table class="calendar">
             <thead>

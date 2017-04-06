@@ -126,11 +126,14 @@ class Calendar{
      */
     public function years(){
         $collection = new Collection();
-        $range      = new \DatePeriod($this->begin, new \DateInterval('P1Y'), $this->end);
+        $current    = clone $this->begin();
 
-        foreach($range as $year){
-            $collection->add(new Year($year, $this));
+        while($current < $this->end()){
+            $collection->add(new Year($current, null, $this));
+            $current->endOf('year')->addSeconds(1);
         }
+
+        $collection->last()->setEnd($this->end());
         return $collection;
     }
 

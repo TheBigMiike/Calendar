@@ -40,14 +40,22 @@ abstract class Period implements PeriodInterface{
     /**
      * Constructor
      * @param $begin
-     * @param Calendar|NULL $calendar
+     * @param null $end
+     * @param Calendar $config
      */
-    public function __construct($begin, Calendar $config = null){
-        $this->begin    = clone $this->getMoment($begin);
-        $this->end      = clone $this->getMoment($begin)->add($this->dateInterval());
-        $this->config   = $config;
-        // destroy $begin
-        unset($begin);
+    public function __construct($begin, $end = null, Calendar $config = null){
+        $this->setBegin($begin);
+        $this->setEnd($end);
+        $this->setConfig($config);
+    }
+
+    /**
+     * Begin setter
+     * @param $begin
+     */
+    public function setBegin($begin){
+        $this->begin = clone $this->getMoment($begin);
+        $this->setEnd();
     }
 
     /**
@@ -59,11 +67,30 @@ abstract class Period implements PeriodInterface{
     }
 
     /**
+     * End setter
+     * @param $end
+     */
+    public function setEnd($end = null){
+        if(!$end){
+            $end = $this->begin()->endOf($this->period());
+        }
+        $this->end = clone $this->getMoment($end);
+    }
+
+    /**
     * End of this period
     * @return Moment
      */
     public function end(){
         return clone $this->end;
+    }
+
+    /**
+     * Config setter
+     * @param Calendar $config
+     */
+    public function setConfig(Calendar $config){
+        $this->config = $config;
     }
 
     /**

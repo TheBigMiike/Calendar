@@ -3,6 +3,9 @@ namespace Calendar\Periods;
 
 class Day extends Period{
 
+    /**
+     * @var boolean
+     */
     protected $is_business_day = null;
 
     const SUNDAY = 0;
@@ -18,6 +21,7 @@ class Day extends Period{
     const FRIDAY = 5;
 
     const SATURDAY = 6;
+
 
     /**
      * Echo the day number

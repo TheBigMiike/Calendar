@@ -27,9 +27,12 @@ class Year extends Period{
         $collection = new Collection();
         $current    = clone $this->begin;
 
-        while($current < $this->end){
-            $collection->add(new Month($current, $this->config));
+        while($current < $this->end()){
+            $collection->add(new Month($current, null, $this->config));
+            $current->endOf('month')->addSeconds(1);
         }
+
+        $collection->last()->setEnd($this->end());
         return $collection;
     }
 

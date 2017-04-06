@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "fightbulc/moment": "^1.22"
+        "fightbulc/moment": "^1.26"
     },
     "suggest": {
         "illuminate/support": "Needed if you want to use Laravel Facade system."

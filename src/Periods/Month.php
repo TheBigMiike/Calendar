@@ -5,12 +5,10 @@ use Calendar\Collections\Collection;
 
 class Month extends Period{
 
-
     /**
      * @var Collection <Day>
      */
     protected $days;
-
 
 
     /**
@@ -54,8 +52,11 @@ class Month extends Period{
         $current    = clone $this->begin;
 
         while($current < $this->end){
-            $collection->add(new Day($current, $this->config));
+            $collection->add(new Day($current, null, $this->config));
+            $current->endOf('day')->addSeconds(1);
         }
+
+        $collection->last()->setEnd($this->end());
         return $collection;
     }
 
