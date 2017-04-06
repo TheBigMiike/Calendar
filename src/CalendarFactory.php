@@ -37,7 +37,7 @@ class CalendarFactory{
             $year = new Moment($year.'-01-01');
         }
 
-        $instance = new Year($year, $calendar);
+        $instance = new Year($year, null, $calendar);
         return $instance->months();
     }
 
@@ -50,7 +50,7 @@ class CalendarFactory{
      * @return Day
      */
     public function day4($year = null, $month = null, $day = null, Calendar $calendar = null){
-        return new Day($this->getMomentFromFormat($year, $month, $day), $calendar);
+        return new Day($this->getMomentFromFormat($year, $month, $day), null, $calendar);
     }
 
 
@@ -60,7 +60,7 @@ class CalendarFactory{
      * @return Day
      */
     public function day2($date, Calendar $calendar = null){
-        return new Day($this->getMoment($date), $calendar);
+        return new Day($this->getMoment($date), null, $calendar);
     }
 
 
@@ -71,7 +71,7 @@ class CalendarFactory{
      * @return Month
      */
     public function month3($month = null, $year = null, Calendar $calendar = null){
-        return new Month($this->getMomentFromFormat($year, $month));
+        return new Month($this->getMomentFromFormat($year, $month), null, $calendar);
     }
 
 
@@ -81,7 +81,7 @@ class CalendarFactory{
      * @return Month
      */
     public function month2($month, Calendar $calendar = null){
-        return new Month($this->getMomentFromFormat($month), $calendar);
+        return new Month($this->getMomentFromFormat($month), null, $calendar);
     }
 
     /**
@@ -94,7 +94,7 @@ class CalendarFactory{
             $year = $this->getMomentFromFormat($year);
         }
 
-        return new Year($this->getMoment($year));
+        return new Year($this->getMoment($year), null, $calendar);
     }
 
     /**

@@ -10,7 +10,9 @@ trait DateTrait{
 
         // If $date is already a Moment instance, then we return the given value
         if($date instanceof Moment){
+            // Change timezone
             $date->setTimezone($timezone);
+
             return $date;
         }
 
