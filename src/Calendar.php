@@ -43,6 +43,11 @@ class Calendar{
     protected $non_business_days = [0, 3, 6];
 
     /**
+     * @var CalendarFactory
+     */
+    protected $factory;
+
+    /**
      * Constructor
      * @param string|\DateTime $begin
      * @param string|\DateTime $end
@@ -121,23 +126,6 @@ class Calendar{
     }
 
     /**
-     * Create a list of years between the start and the end of the calendar
-     * @return Collection
-     */
-    public function years(){
-        $collection = new Collection();
-        $current    = clone $this->begin();
-
-        while($current < $this->end()){
-            $collection->add(new Year($current, null, $this));
-            $current->endOf('year')->addSeconds(1);
-        }
-
-        $collection->last()->setEnd($this->end());
-        return $collection;
-    }
-
-    /**
      * Get the start date
      * @return Moment
      */
@@ -151,6 +139,45 @@ class Calendar{
      */
     public function end(){
         return clone $this->end;
+    }
+
+    /**
+     * Get the factory
+     * @return CalendarFactory
+     */
+    public function factory(){
+        if(!$this->factory){
+            $this->factory = new CalendarFactory();
+        }
+        return $this->factory;
+    }
+
+    /**
+     * Create a collection of years, months or days
+     * @param string
+     * @return Collection
+     */
+    public function createPeriodCollection($period){
+        $collection = new Collection();
+        $current    = clone $this->begin();
+
+        while($current < $this->end()){
+            $collection->add($this->factory()->$period($current, null, $this));
+            $current->endOf($period)->addSeconds(1);
+        }
+
+        $collection->last()->setEnd($this->end());
+        return $collection;
+    }
+
+
+    /**
+     * Handle dynamic calls
+     */
+    public function __call($method, $arguments = array()){
+        if(in_array($method, ['years', 'months', 'days'])){
+            return $this->createPeriodCollection(rtrim($method, 's'));
+        }
     }
 }
  ?>

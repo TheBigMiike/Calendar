@@ -21,7 +21,8 @@ $calendar->setNonBusinessDays([2, 5, 6]);
 $calendar->addHoliday($holiday);
 ?>
 <html>
-    <?php foreach($calendar->years() as $year){ ?>
+    <?php
+    foreach($calendar->years() as $year){ ?>
         <?php foreach($year->months() as $month) {
             echo $month->name().' '.$year;
         ?>

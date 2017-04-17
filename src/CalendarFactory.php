@@ -24,88 +24,35 @@ class CalendarFactory{
 
 
     /**
-     * @param null $year
-     * @param Calendar|null $calendar
-     * @return Collection;
-     */
-    public function months($year = null, Calendar $calendar = null){
-        if(is_null($year)){
-            $year = date('Y');
-        }
-
-        if(!$year instanceof \DateTime){
-            $year = new Moment($year.'-01-01');
-        }
-
-        $instance = new Year($year, null, $calendar);
-        return $instance->months();
-    }
-
-
-    /**
-     * @param null $year
-     * @param null $month
-     * @param null $day
+     * @param $begin
+     * @param null $end
      * @param Calendar|null $calendar
      * @return Day
      */
-    public function day4($year = null, $month = null, $day = null, Calendar $calendar = null){
-        return new Day($this->getMomentFromFormat($year, $month, $day), null, $calendar);
+    public function day($begin, $end = null, Calendar $calendar = null){
+        return new Day($begin, $end, $calendar);
     }
 
 
     /**
-     * @param $date
-     * @param Calendar|null $calendar
-     * @return Day
-     */
-    public function day2($date, Calendar $calendar = null){
-        return new Day($this->getMoment($date), null, $calendar);
-    }
-
-
-    /**
-     * @param null $month
-     * @param null $year
+     * @param $begin
+     * @param null $end
      * @param Calendar|null $calendar
      * @return Month
      */
-    public function month3($month = null, $year = null, Calendar $calendar = null){
-        return new Month($this->getMomentFromFormat($year, $month), null, $calendar);
+    public function month($begin, $end = null, Calendar $calendar = null){
+        return new Month($begin, $end, $calendar);
     }
 
 
     /**
-     * @param $month
-     * @param Calendar|null $calendar
-     * @return Month
-     */
-    public function month2($month, Calendar $calendar = null){
-        return new Month($this->getMomentFromFormat($month), null, $calendar);
-    }
-
-    /**
-     * @param null $year
+     * @param $begin
+     * @param null $end
      * @param Calendar|null $calendar
      * @return Year
      */
-    public function year($year = null, Calendar $calendar = null){
-        if(strlen($year) == 4){
-            $year = $this->getMomentFromFormat($year);
-        }
-
-        return new Year($this->getMoment($year), null, $calendar);
-    }
-
-    /**
-     * Method for calling a method with the same name but not the same args
-     * @param $name
-     * @param $args
-     * @return mixed
-     */
-    function __call($name, $args){
-        $name = $name.count($args);
-        return call_user_func_array(array($this, $name), $args);
+    public function year($begin, $end = null, Calendar $calendar = null){
+        return new Year($begin, $end, $calendar);
     }
 }
 ?>
