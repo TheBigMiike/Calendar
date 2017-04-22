@@ -89,7 +89,10 @@ abstract class Period implements PeriodInterface{
      * Config setter
      * @param Calendar $config
      */
-    public function setConfig(Calendar $config){
+    public function setConfig(Calendar $config = null){
+        if(!$config){
+            $config = new Calendar($this->begin(), $this->end());
+        }
         $this->config = $config;
     }
 
