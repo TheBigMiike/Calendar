@@ -26,11 +26,11 @@ trait DateTrait{
     }
 
 
-    protected function getMomentFromFormat($y = null, $m = '01', $d = '01', $h = '00', $m = '00', $s = '00'){
+    protected function getMomentFromFormat($y = null, $m = '01', $d = '01', $h = '00', $i = '00', $s = '00'){
         if(is_null($y)){
             $y = date('Y');
         }
-        return new Moment($y.'-'.$m.'-'.$d.' '.$h.':'.$m.':'.$s);
+        return new Moment($y.'-'.$m.'-'.$d.' '.$h.':'.$i.':'.$s);
     }
 
 
